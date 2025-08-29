@@ -17,20 +17,6 @@ if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
 	Write-Host "Scoop already installed"
 }
 
-# Add Buckets
-if (-not (scoop bucket list | Select-String "nerd-fonts")) {
-    scoop bucket add nerd-fonts
-}
-if (-not (scoop bucket list | Select-String "main")) {
-    scoop bucket add main
-}
-if (-not (scoop bucket list | Select-String "versions")) {
-    scoop bucket add versions
-}
-if (-not (scoop bucket list | Select-String "extras")) {
-    scoop bucket add extras
-}
-
 # Install nvim
 if (-not (Get-Command nvim -ErrorAction SilentlyContinue)) {
     Write-Host "Neovim not found. Installing Neovim with Scoop..."
@@ -51,6 +37,19 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Host "Git already installed."
 }
 
+# Add Buckets
+if (-not (scoop bucket list | Select-String "nerd-fonts")) {
+    scoop bucket add nerd-fonts
+}
+if (-not (scoop bucket list | Select-String "main")) {
+    scoop bucket add main
+}
+if (-not (scoop bucket list | Select-String "versions")) {
+    scoop bucket add versions
+}
+if (-not (scoop bucket list | Select-String "extras")) {
+    scoop bucket add extras
+}
 
 # Create nvim dir
 if (-not (Test-Path $nvimConfigPath)) {
@@ -59,7 +58,6 @@ if (-not (Test-Path $nvimConfigPath)) {
 } else {
     Write-Host "Neovim config folder already exists."
 }
-
 
 # Clone git repo
 if (-not (Test-Path "$nvimConfigPath\.git")) {
