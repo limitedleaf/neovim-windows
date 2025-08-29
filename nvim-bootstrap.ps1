@@ -131,8 +131,7 @@ if (-not (Get-Command rg -ErrorAction SilentlyContinue)) {
 if (-not (Get-Command lua5.1 -ErrorAction SilentlyContinue)) {
     Write-Host "lua5.1 not found. Installing Git..."
     scoop install lua51
-    scoop shim rm lua
-    scoop shim add lua5.1 "$env:USERPROFILE\scoop\apps\lua51\current\lua.exe"
+    scoop shim add lua5.1 "$env:USERPROFILE\scoop\apps\lua51\current\lua5.1.exe"
 } else {
     Write-Host "lua5.1 already installed."
 }
