@@ -95,12 +95,12 @@ if (Test-Path $wtSettings) {
     Write-Host "Windows Terminal settings.json not found. Set the font manually."
 }
 
-#Install python
-if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
-    Write-Host "python not found. Installing Git..."
+#Install pip
+if (-not (Get-Command pip -ErrorAction SilentlyContinue)) {
+    Write-Host "pip not found. Installing Git..."
     scoop install python
 } else {
-    Write-Host "python already installed."
+    Write-Host "pip already installed."
 }
 
 #Install luarocks
