@@ -7,7 +7,7 @@ $nvimConfigPath = "$env:LOCALAPPDATA/nvim"
 $repoUrl = "https://github.com/limitedleaf/neovim-windows"
 $scoopfile = Join-Path $nvimConfigPath "dependencies.json"
 $wtSettings = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-$json = Get-Content $jsonPath -Raw | ConvertFrom-Json
+$json = Get-Content $wtSettings -Raw | ConvertFrom-Json
 
 # Verify scoop
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
