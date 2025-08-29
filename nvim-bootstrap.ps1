@@ -17,8 +17,33 @@ if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
 	Write-Host "Scoop already installed"
 }
 
+# Add Buckets
+if (-not (scoop bucket list | Select-String "nerd-fonts")) {
+    scoop bucket add nerd-fonts
+}
+if (-not (scoop bucket list | Select-String "main")) {
+    scoop bucket add main
+}
+if (-not (scoop bucket list | Select-String "versions")) {
+    scoop bucket add versions
+}
+if (-not (scoop bucket list | Select-String "extras")) {
+    scoop bucket add extras
+}
 
-# Verify Git
+# Install nvim
+if (-not (Get-Command nvim -ErrorAction SilentlyContinue)) {
+    Write-Host "Neovim not found. Installing Neovim with Scoop..."
+    scoop install neovim
+} else {
+    Write-Host "Neovim already installed."
+}
+
+
+# Install dependencies
+Write-Host "Installing dependencies..."
+
+# Install Git
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Host "Git not found. Installing Git..."
     scoop install git
@@ -27,11 +52,25 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
 }
 
 
-# Install a nerdFont
-if (-not (scoop bucket list | Select-String "nerd-fonts")) {
-    scoop bucket add nerd-fonts
+# Create nvim dir
+if (-not (Test-Path $nvimConfigPath)) {
+    Write-Host "Creating Neovim config folder at $nvimConfigPath"
+    New-Item -ItemType Directory -Path $nvimConfigPath | Out-Null
+} else {
+    Write-Host "Neovim config folder already exists."
 }
 
+
+# Clone git repo
+if (-not (Test-Path "$nvimConfigPath\.git")) {
+    Write-Host "Cloning Neovim config repo..."
+    git clone $repoUrl $nvimConfigPath
+} else {
+    Write-Host "Repo already cloned. Pulling latest changes..."
+    git -C $nvimConfigPath pull
+}
+
+# Install a nerdFont
 if (-not (scoop list | Select-String "JetBrainsMono-NF")) {
     scoop install JetBrainsMono-NF
     Write-Host "JetBrainsMono Nerd Font Font installed."
@@ -58,47 +97,50 @@ if (Test-Path $wtSettings) {
     Write-Host "Windows Terminal settings.json not found. Set the font manually."
 }
 
-
-# Install nvim
-if (-not (Get-Command nvim -ErrorAction SilentlyContinue)) {
-    Write-Host "Neovim not found. Installing Neovim with Scoop..."
-    scoop install neovim
+#Install python
+if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
+    Write-Host "python not found. Installing Git..."
+    scoop install python
 } else {
-    Write-Host "Neovim already installed."
+    Write-Host "python already installed."
 }
 
-
-# Create nvim dir
-if (-not (Test-Path $nvimConfigPath)) {
-    Write-Host "Creating Neovim config folder at $nvimConfigPath"
-    New-Item -ItemType Directory -Path $nvimConfigPath | Out-Null
+#Install luarocks
+if (-not (Get-Command luarocks -ErrorAction SilentlyContinue)) {
+    Write-Host "luarocks not found. Installing Git..."
+    scoop install luarocks
 } else {
-    Write-Host "Neovim config folder already exists."
+    Write-Host "luarocks already installed."
 }
 
-
-# Clone git repo
-if (-not (Test-Path "$nvimConfigPath\.git")) {
-    Write-Host "Cloning Neovim config repo..."
-    git clone $repoUrl $nvimConfigPath
+#Install nodejs
+if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
+    Write-Host "nodejs not found. Installing Git..."
+    scoop install nodejs
 } else {
-    Write-Host "Repo already cloned. Pulling latest changes..."
-    git -C $nvimConfigPath pull
+    Write-Host "nodejs already installed."
 }
 
+#Install ripgrep
+if (-not (Get-Command rg -ErrorAction SilentlyContinue)) {
+    Write-Host "ripgrep not found. Installing Git..."
+    scoop install ripgrep
+} else {
+    Write-Host "ripgrep already installed."
+}
 
-# Install dependencies
-Write-Host "Installing dependencies..."
-scoop bucket add versions
-scoop bucket add extras
-scoop install python
-scoop install luarocks
-scoop install lua51
-scoop install nodejs
-scoop install ripgrep
+#Install lua5.1
+if (-not (Get-Command lua5.1 -ErrorAction SilentlyContinue)) {
+    Write-Host "lua5.1 not found. Installing Git..."
+    scoop install lua51
+    scoop shim rm lua
+    scoop shim add lua5.1 "$env:USERPROFILE\scoop\apps\lua51\current\lua.exe"
+} else {
+    Write-Host "lua5.1 already installed."
+}
+
 Write-Host "Installed dependencies!"
 
-# Setup providers 
-npm install -g neovim
+# Setup Providers
 pip install pynvim
-
+npm install neovim
