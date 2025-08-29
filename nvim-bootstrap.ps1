@@ -7,7 +7,7 @@ $nvimConfigPath = "$env:LOCALAPPDATA/nvim"
 $repoUrl = "https://github.com/limitedleaf/neovim-windows"
 $scoopfile = Join-Path $nvimConfigPath "dependencies.json"
 $wtSettings = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-
+$json = Get-Content $jsonPath -Raw | ConvertFrom-Json
 
 # Verify scoop
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
@@ -43,11 +43,11 @@ if (-not (scoop list | Select-String "jetbrainsmono-nerd-font")) {
 if (Test-Path $wtSettings) {
     $settings = Get-Content $wtSettings -Raw | ConvertFrom-Json
     foreach ($profile in $settings.profiles.list) {
-        if ($profile.name -eq "PowerShell" -or $profile.name -eq "Windows PowerShell") {
+        if ($profile.name -like "*PowerShell*") {
             $profile.fontFace = "JetBrains Mono Nerd Font"
         }
     }
-    $settings | ConvertTo-Json -Depth 100 | Set-Content $wtSettings
+    $settings | ConvertTo-Json -Depth 5 | Set-Content $wtSettings
     Write-Host "Windows Terminal font updated. Restart terminal to apply."
 } else {
     Write-Host "Windows Terminal settings.json not found. Set the font manually."
