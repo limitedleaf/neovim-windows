@@ -92,9 +92,10 @@ Write-Host "Installing dependencies..."
 scoop bucket add versions
 scoop bucket add extras
 scoop install python
-scoop install lua51
 scoop install luarocks
+scoop install lua51
 scoop install nodejs
+scoop install ripgrep
 Write-Host "Installed dependencies!"
 
 # Setup providers 
