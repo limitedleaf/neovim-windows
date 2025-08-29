@@ -88,12 +88,14 @@ if (-not (Test-Path "$nvimConfigPath\.git")) {
 
 
 # Install dependencies
-if (Test-Path $scoopfile) {
-    Write-Host "Found dependencies.json. Installing dependencies..."
-    scoop import $scoopfile
-} else {
-    Write-Host "No dependencies.json found in repo. Skipping dependency install."
-}
+Write-Host "Installing dependencies..."
+scoop bucket add versions
+scoop bucket add extras
+scoop install python
+scoop install lua51
+scoop install luarocks
+scoop install nodejs
+Write-Host "Installed dependencies!"
 
 # Setup providers 
 npm install -g neovim
