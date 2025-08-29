@@ -140,4 +140,4 @@ Write-Host "Installed dependencies!"
 
 # Setup Providers
 pip install pynvim
-npm install neovim
+npm install -g neovim
