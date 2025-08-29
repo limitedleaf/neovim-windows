@@ -11,7 +11,7 @@ An simple out of the box neo-vim installer for windows
 ```ps1
 Set-ExecutionPolicy RemoteSigned -Scope Process -Force
 ```
--- Run the scipt.
+- Run the scipt.
 ```ps1
 ./nvim-bootstrap.ps1
 ```
