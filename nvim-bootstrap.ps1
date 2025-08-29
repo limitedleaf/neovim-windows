@@ -7,7 +7,6 @@ $nvimConfigPath = "$env:LOCALAPPDATA/nvim"
 $repoUrl = "https://github.com/limitedleaf/neovim-windows"
 $scoopfile = Join-Path $nvimConfigPath "dependencies.json"
 $wtSettings = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-$json = Get-Content $wtSettings -Raw | ConvertFrom-Json
 
 # Verify scoop
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
@@ -37,7 +36,7 @@ if (-not (scoop list | Select-String "JetBrainsMono-NF")) {
     scoop install JetBrainsMono-NF
     Write-Host "JetBrainsMono Nerd Font Font installed."
 } else {
-    Write-Host "JJetBrainsMono Nerd Font already installed."
+    Write-Host "JetBrainsMono Nerd Font already installed."
 }
 
 if (Test-Path $wtSettings) {
@@ -95,3 +94,8 @@ if (Test-Path $scoopfile) {
 } else {
     Write-Host "No dependencies.json found in repo. Skipping dependency install."
 }
+
+# Setup providers 
+npm install -g neovim
+pip install pynvim
+

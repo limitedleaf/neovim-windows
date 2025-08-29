@@ -1,4 +1,4 @@
 {
-    "apps": [],
-    "buckets": []
+    "apps": ["python", "lua51", "luarocks", "node"],
+    "buckets": ["main", "versions"]
 }
