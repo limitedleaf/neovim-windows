@@ -1,3 +1,3 @@
 require 'settings'
-require 'lazy'
+require 'lazy-setup'
 

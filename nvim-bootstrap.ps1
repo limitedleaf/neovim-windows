@@ -33,20 +33,26 @@ if (-not (scoop bucket list | Select-String "nerd-fonts")) {
     scoop bucket add nerd-fonts
 }
 
-if (-not (scoop list | Select-String "jetbrainsmono-nerd-font")) {
-    scoop install jetbrainsmono-nerd-font
-    Write-Host "JetBrains Mono Nerd Font installed."
+if (-not (scoop list | Select-String "JetBrainsMono-NF")) {
+    scoop install JetBrainsMono-NF
+    Write-Host "JetBrainsMono Nerd Font Font installed."
 } else {
-    Write-Host "JetBrains Mono Nerd Font already installed."
+    Write-Host "JJetBrainsMono Nerd Font already installed."
 }
 
 if (Test-Path $wtSettings) {
     $settings = Get-Content $wtSettings -Raw | ConvertFrom-Json
+
     foreach ($profile in $settings.profiles.list) {
         if ($profile.name -like "*PowerShell*") {
-            $profile.fontFace = "JetBrains Mono Nerd Font"
+            if (-not $profile.font) {
+                $profile | Add-Member -MemberType NoteProperty -Name font -Value @{ face = "JetBrainsMono Nerd Font" }
+            } else {
+                $profile.font.face = "JetBrainsMono Nerd Font"
+            }
         }
     }
+
     $settings | ConvertTo-Json -Depth 5 | Set-Content $wtSettings
     Write-Host "Windows Terminal font updated. Restart terminal to apply."
 } else {
