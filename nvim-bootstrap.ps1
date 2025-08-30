@@ -102,14 +102,13 @@ Ensure-Command -CommandName "tree-sitter" -PackageName "tree-sitter"
 Ensure-Command -CommandName "gzip" -PackageName "gzip"
 Ensure-Command -CommandName "cargo" -PackageName "rustup"
 Ensure-Command -CommandName "unzip" -PackageName "unzip"
-Ensure-Command -CommandName "wget" -PackageName "wget"
 Ensure-Command -CommandName "go" -PackageName "go"
 Ensure-Command -CommandName "php" -PackageName "php"
 Ensure-Command -CommandName "composer" -PackageName "composer"
 Ensure-Command -CommandName "javac" -PackageName "openjdk"
 Ensure-Command -CommandName "gem" -PackageName "ruby"
 Ensure-Command -CommandName "julia" -PackageName "julia"
-
+scoop install wget
 Write-Host "Installed dependencies!"
 
 # Setup Providers
