@@ -136,6 +136,14 @@ if (-not (Get-Command lua5.1 -ErrorAction SilentlyContinue)) {
     Write-Host "lua5.1 already installed."
 }
 
+#Install lazygit
+if (-not (Get-Command  -ErrorAction SilentlyContinue)) {
+	Write-Host "lazygit not found. Installing LazyGit..."
+	scoop install lazygit
+} else {
+	Write-Host "lazygit already installed."
+}
+
 Write-Host "Installed dependencies!"
 
 # Setup Providers
