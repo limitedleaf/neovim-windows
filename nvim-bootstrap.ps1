@@ -1,4 +1,5 @@
 # nvim-bootstrap.ps1
+# random test msg
 $ErrorActionPreference = "Stop"
 
 # Define paths
