@@ -14,7 +14,5 @@ return {
 		install = require 'nvim-treesitter.install'
 		install.prefer_git = false
 		install.compilers = { 'gcc' }
-		vim.wo.foldmethod = 'indent'
-		vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 	end,
 }

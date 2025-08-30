@@ -4,7 +4,6 @@ $ErrorActionPreference = "Stop"
 # Define paths
 $nvimConfigPath = "$env:LOCALAPPDATA/nvim"
 $repoUrl = "https://github.com/limitedleaf/neovim-windows"
-$scoopfile = Join-Path $nvimConfigPath "dependencies.json"
 $wtSettings = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
 # Function to check/install packages
@@ -37,12 +36,16 @@ Ensure-Command -CommandName "nvim" -PackageName "neovim"
 Ensure-Command -CommandName "git" -PackageName "git"
 
 # Add Buckets
-$neededBuckets = @("nerd-fonts","main","versions","extras")
+$neededBuckets = @("nerd-fonts","main","versions","extras","java")
 foreach ($bucket in $neededBuckets) {
     if (-not (scoop bucket list | Select-String $bucket)) {
         scoop bucket add $bucket
     }
 }
+
+#Update vcredist2022
+scoop install vcredist2022
+scoop uninstall vcredist2022
 
 # Create nvim config folder
 if (-not (Test-Path $nvimConfigPath)) {
@@ -96,6 +99,16 @@ Ensure-Command -CommandName "lazygit" -PackageName "lazygit"
 Ensure-Command -CommandName "fd" -PackageName "fd"
 Ensure-Command -CommandName "gcc" -PackageName "gcc"
 Ensure-Command -CommandName "tree-sitter" -PackageName "tree-sitter"
+Ensure-Command -CommandName "gzip" -PackageName "gzip"
+Ensure-Command -CommandName "cargo" -PackageName "rustup"
+Ensure-Command -CommandName "unzip" -PackageName "unzip"
+Ensure-Command -CommandName "wget" -PackageName "wget"
+Ensure-Command -CommandName "go" -PackageName "go"
+Ensure-Command -CommandName "php" -PackageName "php"
+Ensure-Command -CommandName "composer" -PackageName "composer"
+Ensure-Command -CommandName "javac" -PackageName "openjdk"
+Ensure-Command -CommandName "gem" -PackageName "ruby"
+Ensure-Command -CommandName "julia" -PackageName "julia"
 
 Write-Host "Installed dependencies!"
 
